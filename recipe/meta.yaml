@@ -27,7 +27,7 @@ requirements:
     - pyasn1 >=0.2.3
     - pysmi
     - pycryptodomex
-    - trollius
+    - trollius  # [py<36]
     - twisted
 
 test:
