@@ -1,8 +1,8 @@
 {% set name = "pysnmp" %}
-{% set version = "4.4.8" %}
+{% set version = "4.4.9" %}
 {% set file_ext = "tar.gz" %}
 {% set hash_type = "sha256" %}
-{% set hash_value = "13e6dcf7e10dc89f9d09df3eec87b2bc552bb450b64f724622d5149859c482b0" %}
+{% set hash_value = "d5d1e59780126e963dd92e25993b783295734e71bef181f602e51f7393260441" %}
 
 package:
   name: {{ name|lower }}
