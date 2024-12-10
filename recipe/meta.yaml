@@ -56,7 +56,7 @@ test:
     - pip check
 
 about:
-  home: https://snmplabs.com/pysnmp
+  home: https://www.pysnmp.com/pysnmp/
   license: BSD-2-Clause
   license_family: BSD
   license_file: LICENSE.rst
@@ -66,8 +66,8 @@ about:
     features fully-functional SNMP engine capable to act in Agent/Manager/Proxy
     roles, talking SNMP v1/v2c/v3 protocol versions over IPv4/IPv6 and other
     network transports.
-  doc_url: https://pysnmp.sourceforge.net/docs/tutorial.html
-  dev_url: https://github.com/etingof/pysnmp
+  doc_url: https://docs.lextudio.com/pysnmp/
+  dev_url: https://github.com/lextudio/pysnmp
 
 extra:
   recipe-maintainers:
