@@ -1,4 +1,4 @@
-{% set version = "4.4.12" %}
+{% set version = "7.1.15" %}
 
 package:
   name: pysnmp
@@ -6,50 +6,34 @@ package:
 
 source:
   url: https://pypi.io/packages/source/p/pysnmp/pysnmp-{{ version }}.tar.gz
-  sha256: 0c3dbef2f958caca96071fe5c19de43e9c1b0484ab02a0cf08b190bcee768ba9
-  patches:
-    - setuptools_version.patch
+  sha256: f624f2fab9503431f6514ad388b32aa657b36da59d2bc9b6059786db7d9f6257
 
 build:
-  number: 1
-  noarch: python
-  script: "{{ PYTHON }} -m pip install . --no-deps -vv"
+  number: 0
+  script: {{ PYTHON }} -m pip install . --no-deps -vv --no-build-isolation
 
 requirements:
-  build:
-    - patch     # [not win]
-    - m2-patch  # [win]
   host:
     - python
+    - poetry-core >=1.0.0
     - pip
   run:
     - python
-    - pyasn1 >=0.2.3
-    - pysmi
-    - pycryptodomex
-    - twisted
+    - pyasn1 >=0.4.8,!=0.5.0
+    - pysmi >=1.3.0,<2.0.0
 
 test:
+  requires:
+    - python
+    - pip
   imports:
     - pysnmp
     - pysnmp.carrier
     - pysnmp.carrier.asyncio
     - pysnmp.carrier.asyncio.dgram
-    - pysnmp.carrier.asyncore
-    - pysnmp.carrier.asyncore.dgram
-    - pysnmp.carrier.asynsock
-    - pysnmp.carrier.asynsock.dgram
-    - pysnmp.carrier.twisted
-    - pysnmp.carrier.twisted.dgram
     - pysnmp.entity
     - pysnmp.entity.rfc3413
-    - pysnmp.entity.rfc3413.oneliner
-    - pysnmp.hlapi
     - pysnmp.hlapi.asyncio
-    - pysnmp.hlapi.asyncore
-    - pysnmp.hlapi.asyncore.sync
-    - pysnmp.hlapi.asyncore.sync.compat
-    - pysnmp.hlapi.twisted
     - pysnmp.proto
     - pysnmp.proto.acmod
     - pysnmp.proto.api
@@ -68,9 +52,11 @@ test:
     - pysnmp.smi
     - pysnmp.smi.mibs
     - pysnmp.smi.mibs.instances
+  commands:
+    - pip check
 
 about:
-  home: http://snmplabs.com/pysnmp
+  home: https://www.pysnmp.com/pysnmp/
   license: BSD-2-Clause
   license_family: BSD
   license_file: LICENSE.rst
@@ -80,9 +66,8 @@ about:
     features fully-functional SNMP engine capable to act in Agent/Manager/Proxy
     roles, talking SNMP v1/v2c/v3 protocol versions over IPv4/IPv6 and other
     network transports.
-  doc_url: http://pysnmp.sourceforge.net/docs/tutorial.html
-  doc_source_url: https://github.com/etingof/pysnmp/tree/master/docs/source/docs
-  dev_url: https://github.com/etingof/pysnmp
+  doc_url: https://docs.lextudio.com/pysnmp/
+  dev_url: https://github.com/lextudio/pysnmp
 
 extra:
   recipe-maintainers:
