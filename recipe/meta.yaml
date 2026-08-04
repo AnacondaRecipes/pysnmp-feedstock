@@ -1,13 +1,15 @@
 {% set name = "pysnmp" %}
-{% set version = "7.1.22" %}
+{% set version = "7.1.28" %}
 
+# Tests disabled until a new version of pysmi is released.
+# Latest pysmi in main 1.5.9, needs version >=1.6.1
 package:
   name: {{ name }}
   version: {{ version }}
 
 source:
   url: https://github.com/lextudio/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: 6bda6ac80d65fac77fd40f259405fc066b4218a616bf16b4345b3e98ca70feeb
+  sha256: cf3c246761cadacf2824b7c35ad9c2db18e6b9c59ceb332ab2d4a205c69b023d
 
 build:
   number: 0
@@ -18,13 +20,11 @@ requirements:
   host:
     - pip
     - python
-    - flit-core>=3.9.0
+    - flit-core >=3.9.0
   run:
     - python
-    - pyasn1 >=0.4.8,!=0.5.0
+    - pyasn1 >=0.6.3
 
-# Tests disabled until a new version of pysmi is released.
-# Latest pysmi in main 1.5.9, needs version >=1.6.1
 test:
   imports:
     - pysnmp
