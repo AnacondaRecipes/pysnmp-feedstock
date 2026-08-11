@@ -1,8 +1,6 @@
 {% set name = "pysnmp" %}
 {% set version = "7.1.28" %}
 
-# Tests disabled until a new version of pysmi is released.
-# Latest pysmi in main 1.5.9, needs version >=1.6.1
 package:
   name: {{ name }}
   version: {{ version }}
@@ -25,7 +23,47 @@ requirements:
     - python
     - pyasn1 >=0.6.3
 
+# Tests requiring external MIB preparation or network resources are excluded from the build environment.`
+{% set ignore_tests = "--ignore=tests/smi/manager/test_mib-tree-inspection.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/smi/test_if_mib_write.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/hlapi/v1arch/asyncio/manager/cmdgen/test_v1arch_v2c_bulkwalk.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/hlapi/v3arch/asyncio/manager/cmdgen/test_v2c_bulkwalk.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/smi/manager/test_configure-mib-viewer-and-resolve-pdu-varbinds.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=tests/smi/manager/test_convert-between-pdu-varbinds-and-mib-objects.py" %}
+
+# Tests relying on external resources or environment-sensitive SNMP behavior.
+{% set deselect_tests = "--deselect=tests/hlapi/v1arch/asyncio/manager/cmdgen/test_v1arch_v1_get.py::test_v1_get_timeout_slow_object" %}
+{% set deselect_tests = deselect_tests + " --deselect=tests/hlapi/v1arch/asyncio/manager/cmdgen/test_v1arch_v1_get.py::test_v1_get_dateandtime_object" %}
+{% set deselect_tests = deselect_tests + " --deselect=tests/hlapi/v1arch/asyncio/manager/cmdgen/test_v1arch_v1_get.py::test_v1_get_physaddress_object" %}
+{% set deselect_tests = deselect_tests + " --deselect=tests/hlapi/v1arch/asyncio/manager/cmdgen/test_v1arch_v1_get.py::test_v1_get_scaled_integer_object" %}
+{% set deselect_tests = deselect_tests + " --deselect=tests/hlapi/v1arch/asyncio/manager/cmdgen/test_v1arch_v1_get.py::test_v1_get_scaled_unsigned_object" %}
+{% set deselect_tests = deselect_tests + " --deselect=tests/hlapi/v1arch/asyncio/manager/cmdgen/test_v1arch_v1_get.py::test_v1_get_multiple_objects" %}
+{% set deselect_tests = deselect_tests + " --deselect=tests/hlapi/v1arch/asyncio/manager/cmdgen/test_v1arch_v1_set.py::test_v1_set_mac_address" %}
+{% set deselect_tests = deselect_tests + " --deselect=tests/hlapi/v1arch/asyncio/manager/cmdgen/test_v1arch_v1_set.py::test_v1_set_table_creation" %}
+{% set deselect_tests = deselect_tests + " --deselect=tests/hlapi/v1arch/asyncio/manager/cmdgen/test_v1arch_v2c_bulk.py::test_v2c_bulk_multiple_input" %}
+{% set deselect_tests = deselect_tests + " --deselect=tests/hlapi/v3arch/asyncio/manager/cmdgen/test_v1_get.py::test_v1_get_slow_object" %}
+{% set deselect_tests = deselect_tests + " --deselect=tests/hlapi/v3arch/asyncio/manager/cmdgen/test_v1_set.py::test_v1_set_table_creation" %}
+{% set deselect_tests = deselect_tests + " --deselect=tests/hlapi/v3arch/asyncio/manager/cmdgen/test_custom_asn1_mib_search_path.py::test_custom_asn1_mib_search_path" %}
+{% set deselect_tests = deselect_tests + " --deselect=tests/hlapi/v1arch/asyncio/manager/cmdgen/test_v1arch_v2c_get.py::test_v2_get_no_access_object" %}
+{% set deselect_tests = deselect_tests + " --deselect=tests/hlapi/v1arch/asyncio/manager/cmdgen/test_v1arch_v2c_get.py::test_v2_get_legacy_object" %}
+{% set deselect_tests = deselect_tests + " --deselect=tests/hlapi/v3arch/asyncio/manager/cmdgen/test_v2c_get.py::test_v2_get_no_access_object" %}
+{% set deselect_tests = deselect_tests + " --deselect=tests/hlapi/v3arch/asyncio/manager/cmdgen/test_v2c_get.py::test_v2_get_legacy_object" %}
+{% set deselect_tests = deselect_tests + " --deselect=tests/hlapi/v3arch/asyncio/manager/cmdgen/test_v2c_bulk.py::test_v2c_bulk_non_exist" %}
+{% set deselect_tests = deselect_tests + " --deselect=tests/hlapi/v1arch/asyncio/manager/cmdgen/test_v1arch_v1_walk.py::test_v1_walk" %}
+{% set deselect_tests = deselect_tests + " --deselect=tests/hlapi/v3arch/asyncio/manager/cmdgen/test_v1_walk.py::test_v1_walk" %}
+{% set deselect_tests = deselect_tests + " --deselect=tests/hlapi/v1arch/asyncio/manager/cmdgen/test_v1arch_v2_walk.py::test_v2_walk" %}
+{% set deselect_tests = deselect_tests + " --deselect=tests/hlapi/v3arch/asyncio/manager/cmdgen/test_v2_walk.py::test_v2_walk" %}
+{% set deselect_tests = deselect_tests + " --deselect=tests/hlapi/v3arch/asyncio/agent/ntforg/test_default-v1-trap.py::test_send_trap_custom_mib" %}
+{% set deselect_tests = deselect_tests + " --deselect=tests/hlapi/v3arch/asyncio/agent/ntforg/test_v3-trap.py::test_send_v3_trap_notification" %}
+{% set deselect_tests = deselect_tests + " --deselect=tests/hlapi/v3arch/asyncio/agent/ntforg/test_v3-trap.py::test_send_v3_trap_notification_none" %}
+{% set deselect_tests = deselect_tests + " --deselect=tests/hlapi/v3arch/asyncio/agent/ntforg/test_v3-trap.py::test_send_v3_trap_notification_invalid_user" %}
+{% set deselect_tests = deselect_tests + " --deselect=tests/proto/test_network_address.py::test_inet_address_ipv4_resolv" %}
+{% set deselect_tests = deselect_tests + " --deselect=tests/proto/test_network_address.py::test_inet_address_ipv6_resolv" %}
+{% set deselect_tests = deselect_tests + " --deselect=tests/proto/test_network_address.py::test_inet_address_roundtrip" %}
+
 test:
+  source_files:
+    - tests
   imports:
     - pysnmp
     - pysnmp.carrier
@@ -54,8 +92,13 @@ test:
     - pysnmp.smi.mibs.instances
   commands:
     - pip check
+    - python -m pytest -v tests {{ ignore_tests }} {{ deselect_tests }}
   requires:
     - pip
+    - pytest
+    - pytest-asyncio
+    - pysmi >=2.0.0
+    - cryptography >=44.0.1
 
 about:
   home: https://www.pysnmp.com/pysnmp
