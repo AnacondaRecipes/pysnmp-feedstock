@@ -21,7 +21,7 @@ requirements:
     - flit-core >=3.9.0
   run:
     - python
-    - pyasn1 >=0.6.3
+    - pyasn1 >=0.6.4
 
 # Tests requiring external MIB preparation or network resources are excluded from the build environment.`
 {% set ignore_tests = "--ignore=tests/smi/manager/test_mib-tree-inspection.py" %}
