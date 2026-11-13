@@ -98,7 +98,7 @@ test:
     - pytest
     - pytest-asyncio
     - pysmi >=2.0.0
-    - cryptography >=44.0.1
+    - cryptography >=50.0.1
 
 about:
   home: https://www.pysnmp.com/pysnmp
