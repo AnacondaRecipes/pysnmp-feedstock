@@ -1,5 +1,5 @@
 {% set name = "pysnmp" %}
-{% set version = "7.1.28" %}
+{% set version = "7.1.32" %}
 
 package:
   name: {{ name }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/lextudio/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: cf3c246761cadacf2824b7c35ad9c2db18e6b9c59ceb332ab2d4a205c69b023d
+  sha256: 5b85dd904f92f948d37eaead9a8c5ae43e6fb6747f997b00e33e2286fc2345c6
 
 build:
   number: 0
